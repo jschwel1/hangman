@@ -5,10 +5,16 @@
 int main(){
 	char again = 1;
 	char phrase[100];
+	int i=0;
+
 	while (again){
 		printf("Enter a word or phrase:\n");
-//		scanf("%s", phrase);
-		getline(phrase, 100, stdin);
+		do {
+			scanf("%c", &phrase[i]);
+			i++;
+		}while(phrase[i-1] != '\n');
+		phrase[i] = 0x00;
+
 		printf("You entered: %s\n", phrase);
 		play(phrase);
 		printf("Play again (y/n)");
