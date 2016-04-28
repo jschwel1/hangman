@@ -1,4 +1,11 @@
+#ifndef HM_H
+#define HM_H
+
 #include "hangman.h"
+
+
+
+#define MAX_WRONG 8
 
 /******* STRUCTURES ****************/
 
@@ -7,7 +14,7 @@ struct node_s {
 	node_s * next;
 }
 
-typedef node_s * node;
+typedef stuct node_s * node;
 
 
 /************ Global Variables *******/
@@ -18,7 +25,13 @@ char numWrong;
 
 
 /*********** Functions ************/
+void play(char * phrase);
+
+char getStatus();
+
 void setUp(char * phraseInput);
+
+void reset(char * phraseInput);
 
 char * toLowerCase(char * c);
 
@@ -30,3 +43,4 @@ void print();
 
 void printGallows(char num);
 
+#endif

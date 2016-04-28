@@ -1,14 +1,15 @@
+#include <stdio.h>
 #include "hangman.h"
 
 /******* STRUCTURES ****************/
-
+/*
 struct node_s {
 	char l;
-	node_s * next;
+	struct node_s * next;
 }
 
-typedef node_s * node;
-
+typedef struct node_s * node;
+*/
 
 /************ Global Variables *******/
 node wrong;
@@ -16,6 +17,35 @@ node right;
 char * phrase;
 char numWrong;
 
+
+void play(char * phrase){
+	char input;
+	reset(phrase);
+	while (gameStatus() == -1){
+		print();
+		printf("Enter a lettter:\n");
+		scanf("%c", &input);
+		input = toLowerCase(&input);
+		guess(input);
+	}
+}
+
+
+char gameStatus(){
+	char allThere = 1, i;
+	if (numWrong >= MAX_WRONG) return 0;
+	if (right == NULL) return -1;
+
+	for (i = 0; i < strlen(phrase); i++){
+		node p = right;
+		while (p != NULL){
+			if (p->l == phrase[i]) break;
+			p = p->next;
+		}
+		if (p == NULL) return -1;
+	}
+	if (allThere == 1) return 0;
+}
 
 /*********** Functions ************/
 void setUp(char * phraseInput){
@@ -25,6 +55,22 @@ void setUp(char * phraseInput){
 	phrase = toLowerCase(phraseInput);
 }
 
+void reset(char * phraseInput){
+	node p = right;
+	while (p != NULL) {
+		right = p->next
+		free(p);
+		p = right;
+	}
+	p = wrong;
+	while (p != NULL){
+		wrong = p->next;
+		free(p);
+		p = wrong;
+	}
+	setUp(phraseInput);
+
+}
 char * toLowerCase(char * c){
 	char i;
 	for (i = 0; i < strlen(c); i++){
@@ -35,7 +81,7 @@ char * toLowerCase(char * c){
 
 void addToList(node list, char c){
 	node p = list;
-	node new = (node)malloc(sizeof(node_s));
+	node new = (node)malloc(sizeof(struct node_s));
 
 	if (p == NULL){
 		p = new;
@@ -111,7 +157,7 @@ void printGallows(char num){
 		printf("	|		  \n");
 		printf("	|		  \n");
 		printf("	|		  \n");
-		printf("_______/_\______________  \n");
+		printf("_______/_\\______________  \n");
 	}
 
 	else if(num == 1){
@@ -137,7 +183,7 @@ void printGallows(char num){
 		printf("	|		  \n");
 		printf("	|		  \n");
 		printf("	|		  \n");
-		printf("_______/_\______________  \n");
+		printf("_______/_\\______________  \n");
 	}
 	else if(num == 2){
 		printf("	__________________\n");
@@ -162,7 +208,7 @@ void printGallows(char num){
 		printf("	|		  \n");
 		printf("	|		  \n");
 		printf("	|		  \n");
-		printf("_______/_\______________  \n");
+		printf("_______/_\\______________  \n");
 	}
 	else if(num == 3){
 		printf("	__________________\n");
@@ -187,7 +233,7 @@ void printGallows(char num){
 		printf("	|		  \n");
 		printf("	|		  \n");
 		printf("	|		  \n");
-		printf("_______/_\______________  \n");
+		printf("_______/_\\______________  \n");
 	}
 	else if(num == 4){
 		printf("	__________________\n");
@@ -212,7 +258,7 @@ void printGallows(char num){
 		printf("	|		  \n");
 		printf("	|		  \n");
 		printf("	|		  \n");
-		printf("_______/_\______________  \n");
+		printf("_______/_\\______________  \n");
 	}
 	else if(num == 5){
 		printf("	__________________\n");
@@ -237,7 +283,7 @@ void printGallows(char num){
 		printf("	|		  \n");
 		printf("	|		  \n");
 		printf("	|		  \n");
-		printf("_______/_\______________  \n");
+		printf("_______/_\\______________  \n");
 	}
 	else if(num == 6){
 		printf("	__________________\n");
@@ -262,7 +308,7 @@ void printGallows(char num){
 		printf("	|		  \n");
 		printf("	|		  \n");
 		printf("	|		  \n");
-		printf("_______/_\______________  \n");
+		printf("_______/_\\______________  \n");
 	}
 	else if(num == 7){
 		printf("	__________________\n");
@@ -287,8 +333,34 @@ void printGallows(char num){
 		printf("	|		  \n");
 		printf("	|		  \n");
 		printf("	|		  \n");
-		printf("_______/_\______________  \n");
+		printf("_______/_\\______________  \n");
 	}
+	else if(num == 8){
+		printf("	__________________\n");
+		printf("	|		 |\n");
+		printf("	|	      ___|___\n");	
+		printf("	|	     | X  X |\n");
+		printf("	|	     | ____ | \n");
+		printf("	|	     |______|  \n");
+		printf("	|		 |\n");
+		printf("	|		/|\\\n");
+		printf("	|	       / | \\\n");
+		printf("	|	      /	 |  \\\n");
+		printf("	|	     /	 |   \\\n");
+		printf("	|		 |\n");
+		printf("	|		 |\n");
+		printf("	|		/ \\\n");
+		printf("	|	       /   \\\n");
+		printf("	|	      /	    \\\n");
+		printf("	|		  \n");
+		printf("	|  GAME OVER	  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("_______/_\\______________  \n");
+	}
+
 
 
 
