@@ -1,38 +1,25 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "hangman.h"
-
-/******* STRUCTURES ****************/
-/*
-struct node_s {
-	char l;
-	struct node_s * next;
-}
-
-typedef struct node_s * node;
-*/
-
-/************ Global Variables *******/
-node wrong;
-node right;
-char * phrase;
-char numWrong;
 
 
 void play(char * phrase){
 	char input;
 	reset(phrase);
-	while (gameStatus() == -1){
+	while (getStatus() == -1){
 		print();
 		printf("Enter a lettter:\n");
-		scanf("%c", &input);
-		input = toLowerCase(&input);
+		scanf("\n%c", &input);
+		toLowerCase(&input);
 		guess(input);
 	}
 }
 
 
-char gameStatus(){
-	char allThere = 1, i;
+char getStatus(){
+	int i;
+	char allThere = 1;
 	if (numWrong >= MAX_WRONG) return 0;
 	if (right == NULL) return -1;
 
@@ -45,6 +32,7 @@ char gameStatus(){
 		if (p == NULL) return -1;
 	}
 	if (allThere == 1) return 0;
+	return -1;
 }
 
 /*********** Functions ************/
@@ -52,13 +40,15 @@ void setUp(char * phraseInput){
 	wrong = NULL;
 	right = NULL;
 	numWrong = 0;
-	phrase = toLowerCase(phraseInput);
+
+	toLowerCase(phraseInput);
+	phrase = phraseInput;
 }
 
 void reset(char * phraseInput){
 	node p = right;
 	while (p != NULL) {
-		right = p->next
+		right = p->next;
 		free(p);
 		p = right;
 	}
@@ -68,25 +58,28 @@ void reset(char * phraseInput){
 		free(p);
 		p = wrong;
 	}
+
 	setUp(phraseInput);
 
 }
-char * toLowerCase(char * c){
-	char i;
+void toLowerCase(char * c){
+	int i;
 	for (i = 0; i < strlen(c); i++){
-		if (c[i] >= 'A' && c[i] <= 'Z') c[i] = c[i] + 'A'-'a';
+		if (c[i] >= 'A' && c[i] <= 'Z') c[i] +=32;
 	}
 	
 }
 
-void addToList(node list, char c){
-	node p = list;
+void addToRightList(char c){
+	node p = right;
 	node new = (node)malloc(sizeof(struct node_s));
 
 	if (p == NULL){
-		p = new;
-		new->next = NULL;
-		new->l = c;
+		right = new;
+		right->next = NULL;
+		right->l = c;
+//		new->next = NULL;
+//		new->l = c;
 	}
 	else {
 		while (p->next != NULL) p=p->next;
@@ -96,16 +89,37 @@ void addToList(node list, char c){
 
 	}
 }
+void addToWrongList(char c){
+	node p = wrong;
+	node new = (node)malloc(sizeof(struct node_s));
 
+	if (p == NULL){
+		wrong = new;
+		wrong->next = NULL;
+		wrong->l = c;
+//		new->next = NULL;
+//		new->l = c;
+	}
+	else {
+		while (p->next != NULL) p=p->next;
+		p->next = new;
+		new->next = NULL;
+		new->l = c;
+
+	}
+}
 void guess(char c){
+	int i;
+	
+	if (c < 'a' || c > 'z') return;
+	
 	for (i = 0; i < strlen(phrase); i++){
-		char correct = 0;
-		if (phrase[i] == correct){
-			addToList(c);
+		if (phrase[i] == c){
+			addToRightList(c);
 			return;
 		}
 	}
-	addToList(c);
+	addToWrongList(c);
 	numWrong++;
 	return;
 }
@@ -115,7 +129,7 @@ void guess(char c){
 
 void print(){
 	node p;
-	char i;
+	int i;
 	
 	printGallows(numWrong);
 
@@ -123,7 +137,7 @@ void print(){
 	printf("Wrong Guesses: ");
 	for (p = wrong; p != NULL; p = p->next) printf("%c ", p->l);
 	printf("\n");
-	
+
 	for (i = 0; i < strlen(phrase); i++){
 		char guessed = 0;
 		for (p = right; p != NULL; p = p->next){
@@ -131,6 +145,7 @@ void print(){
 		}
 		if (phrase[i] > 'a' && phrase[i] < 'z') printf("%c",guessed?phrase[i]:'_');
 	}
+	printf("\nPhrase: %s\n",phrase);
 }
 
 void printGallows(char num){

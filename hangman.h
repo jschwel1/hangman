@@ -11,16 +11,16 @@
 
 struct node_s {
 	char l;
-	node_s * next;
-}
+	struct node_s* next;
+};
 
-typedef stuct node_s * node;
+typedef struct node_s* node;
 
 
 /************ Global Variables *******/
 node wrong;
 node right;
-char * phrase;
+char* phrase;
 char numWrong;
 
 
@@ -33,7 +33,7 @@ void setUp(char * phraseInput);
 
 void reset(char * phraseInput);
 
-char * toLowerCase(char * c);
+void toLowerCase(char * c);
 
 void addToList(node list, char c);
 
