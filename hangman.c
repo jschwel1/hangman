@@ -1,5 +1,6 @@
+#include "hangman.h"
 
-
+/******* STRUCTURES ****************/
 
 struct node_s {
 	char l;
@@ -9,11 +10,14 @@ struct node_s {
 typedef node_s * node;
 
 
+/************ Global Variables *******/
 node wrong;
 node right;
 char * phrase;
 char numWrong;
 
+
+/*********** Functions ************/
 void setUp(char * phraseInput){
 	wrong = NULL;
 	right = NULL;
@@ -66,6 +70,8 @@ void guess(char c){
 void print(){
 	node p;
 	char i;
+	
+	printGallows(numWrong);
 
 	// print wrong letters
 	printf("Wrong Guesses: ");
@@ -79,4 +85,214 @@ void print(){
 		}
 		if (phrase[i] > 'a' && phrase[i] < 'z') printf("%c",guessed?phrase[i]:'_');
 	}
+}
+
+void printGallows(char num){
+	if (num == 0){
+		printf("	__________________\n");
+		printf("	|		 |\n");
+		printf("	|		 |\n");	
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("_______/_\______________  \n");
+	}
+
+	else if(num == 1){
+		printf("	__________________\n");
+		printf("	|		 |\n");
+		printf("	|	      ___|___\n");	
+		printf("	|	     |      |\n");
+		printf("	|	     |	    | \n");
+		printf("	|	     |______|  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("_______/_\______________  \n");
+	}
+	else if(num == 2){
+		printf("	__________________\n");
+		printf("	|		 |\n");
+		printf("	|	      ___|___\n");	
+		printf("	|	     |      |\n");
+		printf("	|	     |	    | \n");
+		printf("	|	     |______|  \n");
+		printf("	|		 |\n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("_______/_\______________  \n");
+	}
+	else if(num == 3){
+		printf("	__________________\n");
+		printf("	|		 |\n");
+		printf("	|	      ___|___\n");	
+		printf("	|	     |      |\n");
+		printf("	|	     |	    | \n");
+		printf("	|	     |______|  \n");
+		printf("	|		 |\n");
+		printf("	|		/ \n");
+		printf("	|	       /  \n");
+		printf("	|	      /	  \n");
+		printf("	|	     /	  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("_______/_\______________  \n");
+	}
+	else if(num == 4){
+		printf("	__________________\n");
+		printf("	|		 |\n");
+		printf("	|	      ___|___\n");	
+		printf("	|	     |      |\n");
+		printf("	|	     |	    | \n");
+		printf("	|	     |______|  \n");
+		printf("	|		 |\n");
+		printf("	|		/ \\\n");
+		printf("	|	       /   \\\n");
+		printf("	|	      /	    \\\n");
+		printf("	|	     /	     \\\n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("_______/_\______________  \n");
+	}
+	else if(num == 5){
+		printf("	__________________\n");
+		printf("	|		 |\n");
+		printf("	|	      ___|___\n");	
+		printf("	|	     |      |\n");
+		printf("	|	     |	    | \n");
+		printf("	|	     |______|  \n");
+		printf("	|		 |\n");
+		printf("	|		/|\\\n");
+		printf("	|	       / | \\\n");
+		printf("	|	      /	 |  \\\n");
+		printf("	|	     /	 |   \\\n");
+		printf("	|		 |\n");
+		printf("	|		 |\n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("_______/_\______________  \n");
+	}
+	else if(num == 6){
+		printf("	__________________\n");
+		printf("	|		 |\n");
+		printf("	|	      ___|___\n");	
+		printf("	|	     |      |\n");
+		printf("	|	     |	    | \n");
+		printf("	|	     |______|  \n");
+		printf("	|		 |\n");
+		printf("	|		/|\\\n");
+		printf("	|	       / | \\\n");
+		printf("	|	      /	 |  \\\n");
+		printf("	|	     /	 |   \\\n");
+		printf("	|		 |\n");
+		printf("	|		 |\n");
+		printf("	|		/ \n");
+		printf("	|	       /  \n");
+		printf("	|	      /	  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("_______/_\______________  \n");
+	}
+	else if(num == 7){
+		printf("	__________________\n");
+		printf("	|		 |\n");
+		printf("	|	      ___|___\n");	
+		printf("	|	     |      |\n");
+		printf("	|	     |	    | \n");
+		printf("	|	     |______|  \n");
+		printf("	|		 |\n");
+		printf("	|		/|\\\n");
+		printf("	|	       / | \\\n");
+		printf("	|	      /	 |  \\\n");
+		printf("	|	     /	 |   \\\n");
+		printf("	|		 |\n");
+		printf("	|		 |\n");
+		printf("	|		/ \\\n");
+		printf("	|	       /   \\\n");
+		printf("	|	      /	    \\\n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("	|		  \n");
+		printf("_______/_\______________  \n");
+	}
+
+
+
+
+
+
 }
