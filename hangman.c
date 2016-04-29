@@ -78,8 +78,6 @@ void addToRightList(char c){
 		right = new;
 		right->next = NULL;
 		right->l = c;
-//		new->next = NULL;
-//		new->l = c;
 	}
 	else {
 		while (p->next != NULL) p=p->next;
@@ -97,8 +95,6 @@ void addToWrongList(char c){
 		wrong = new;
 		wrong->next = NULL;
 		wrong->l = c;
-//		new->next = NULL;
-//		new->l = c;
 	}
 	else {
 		while (p->next != NULL) p=p->next;
@@ -110,9 +106,21 @@ void addToWrongList(char c){
 }
 void guess(char c){
 	int i;
-	
+	node p;
+
 	if (c < 'a' || c > 'z') return;
-	
+	// check that it wasn't already guessed	
+	p = right;
+	while (p != NULL) {
+		if (p->l == c) return;
+		p=p->next;
+	}
+	p = wrong;
+	while (p != NULL) {
+		if (p->l == c) return;
+		p=p->next;
+	}
+
 	for (i = 0; i < strlen(phrase); i++){
 		if (phrase[i] == c){
 			addToRightList(c);
@@ -143,9 +151,10 @@ void print(){
 		for (p = right; p != NULL; p = p->next){
 			if (p->l == phrase[i]) guessed = 1;
 		}
-		if (phrase[i] > 'a' && phrase[i] < 'z') printf("%c",guessed?phrase[i]:'_');
+		if (phrase[i] > 'a' && phrase[i] < 'z') printf("%c ",guessed?phrase[i]:'_');
+		else printf("%c ",phrase[i]);
 	}
-	printf("\nPhrase: %s\n",phrase);
+	printf("\n\n");
 }
 
 void printGallows(char num){

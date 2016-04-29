@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "hangman.h"
 
 
@@ -13,8 +14,13 @@ int main(){
 			scanf("%c", &phrase[i]);
 			i++;
 		}while(phrase[i-1] != '\n');
-		phrase[i] = 0x00;
 
+		for (i = 0; i < strlen(phrase); i++){
+			if (phrase[i] == '\n'){
+				phrase[i] = 0x00;
+				break;
+			}
+		}
 		printf("You entered: %s\n", phrase);
 		play(phrase);
 		printf("Play again (y/n)");
