@@ -14,6 +14,11 @@ void play(char * phrase){
 		toLowerCase(&input);
 		guess(input);
 	}
+
+	print();
+
+	if (getStatus() == 0) printf("Phrase was: %s\n", phrase);
+	else printf("CONGRATULATIONS\n");
 }
 
 
@@ -25,13 +30,15 @@ char getStatus(){
 
 	for (i = 0; i < strlen(phrase); i++){
 		node p = right;
+		if (phrase[i] > 'z' || phrase[i] < 'a') continue;
 		while (p != NULL){
 			if (p->l == phrase[i]) break;
 			p = p->next;
 		}
 		if (p == NULL) return -1;
 	}
-	if (allThere == 1) return 0;
+
+	if (allThere == 1) return 1;
 	return -1;
 }
 

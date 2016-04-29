@@ -10,6 +10,8 @@ int main(){
 
 	while (again){
 		printf("Enter a word or phrase:\n");
+		i = 0;
+		scanf("\n");
 		do {
 			scanf("%c", &phrase[i]);
 			i++;
